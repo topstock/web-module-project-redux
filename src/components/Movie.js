@@ -2,6 +2,8 @@ import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { deleteMovie } from '../actions/movieActions';
+
 const Movie = (props) => {
     const { id } = useParams();
     const { push } = useHistory();
@@ -12,7 +14,7 @@ const Movie = (props) => {
    
     const handleClickDelete = (e) => {
         props.deleteMovie(movie.id);
-        history.push('/movies')
+        push('/movies');
     }
 
     return(<div className="modal-page col">
@@ -63,14 +65,10 @@ const Movie = (props) => {
 
 const mapActionsToProps = (state) => {
     return ({
-        deleteMovie: state.deleteMovie
+        deleteMovie: deleteMovie
     })
 }
 
-const mapStateToProps = (state) => {
-    return ({
-        movies: state.movies
-    })
-}
+const mapStateToProps = ({movies}) => ({movies});
 
 export default connect(mapStateToProps, mapActionsToProps)(Movie);
