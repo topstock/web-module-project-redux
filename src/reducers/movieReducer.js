@@ -12,6 +12,19 @@ const reducer = (state=initialState, action) => {
             return {
                 movies: state.movies.filter(item=>(action.payload !== item.id))
             }
+        case ADD_MOVIE:
+            return ({
+                movies: [
+                    ...state.movies,
+                    {
+                        title: action.payload.title,
+                        director: action.payload.director,
+                        genre: action.payload.genre,
+                        metascore: action.payload.metascore,
+                        description: action.payload.description
+                    }
+                ]
+            })
         default:
             return state;
     }

@@ -9,6 +9,12 @@ const Movie = (props) => {
     const movies = props.movies;
     const movie = movies.find(movie=>movie.id===Number(id));
     
+   
+    const handleClickDelete = (e) => {
+        props.deleteMovie(movie.id);
+        history.push('/movies')
+    }
+
     return(<div className="modal-page col">
         <div className="modal-dialog">
             <div className="modal-content">
@@ -39,7 +45,14 @@ const Movie = (props) => {
                         
                         <section>
                             <span className="m-2 btn btn-dark">Favorite</span>
-                            <span className="delete"><input type="button" className="m-2 btn btn-danger" value="Delete"/></span>
+                            <span className="delete">
+                                <input 
+                                    type="button" 
+                                    className="m-2 btn btn-danger" 
+                                    value="Delete"
+                                    onClick={handleClickDelete}
+                                />
+                            </span>
                         </section>
                     </div>
                 </div>
@@ -48,10 +61,16 @@ const Movie = (props) => {
     </div>);
 }
 
-const mapStateToProps = (state) => {
-    return {
-        movies: state.movies
-    }
+const mapActionsToProps = (state) => {
+    return ({
+        deleteMovie: state.deleteMovie
+    })
 }
 
-export default connect(mapStateToProps)(Movie);
+const mapStateToProps = (state) => {
+    return ({
+        movies: state.movies
+    })
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(Movie);

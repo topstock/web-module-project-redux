@@ -22,7 +22,9 @@ const AddMovieForm = (props) => {
         });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = () => {
+        addMovie(movie);
+        history.push('/movies/');
     }
 
     const { title, director, genre, metascore, description } = movie;
@@ -67,4 +69,10 @@ const AddMovieForm = (props) => {
     </div>);
 }
 
-export default AddMovieForm;
+const mapActionsToProps = (state) => {
+    return ({
+        addMovie: state.addMovie
+    })
+}
+
+export default connect(mapActionsToProps)(AddMovieForm);
