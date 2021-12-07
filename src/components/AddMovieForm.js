@@ -25,7 +25,10 @@ const AddMovieForm = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.addMovie(movie);
+        props.addMovie({
+            ...movie, 
+            id: Date.parse(Date())
+        });
         push('/movies');
     }
 

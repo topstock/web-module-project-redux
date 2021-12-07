@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { deleteMovie } from '../actions/movieActions';
+import { deleteMovie } from './../actions/movieActions';
 
 const Movie = (props) => {
     const { id } = useParams();
@@ -11,7 +11,6 @@ const Movie = (props) => {
     const movies = props.movies;
     const movie = movies.find(movie=>movie.id===Number(id));
     
-   
     const handleClickDelete = (e) => {
         props.deleteMovie(movie.id);
         push('/movies');
@@ -63,12 +62,11 @@ const Movie = (props) => {
     </div>);
 }
 
-const mapActionsToProps = (state) => {
+
+const mapStateToProps = (state) => {
     return ({
-        deleteMovie: deleteMovie
+        movies: state.movies
     })
 }
 
-const mapStateToProps = ({movies}) => ({movies});
-
-export default connect(mapStateToProps, mapActionsToProps)(Movie);
+export default connect(mapStateToProps, {deleteMovie})(Movie);
